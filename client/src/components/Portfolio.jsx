@@ -23,11 +23,14 @@ const Portfolio = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/projects");
+        // CONEXIÓN ACTUALIZADA A LA NUBE (RENDER)
+        const res = await axios.get(
+          "https://portfolio-backend-e6sd.onrender.com/api/projects",
+        );
         setProjects(res.data);
         setFilteredProjects(res.data);
       } catch (err) {
-        console.error("Error en la conexión con la API local");
+        console.error("Error al conectar con el servidor en la nube de Israel");
       }
     };
     fetchProjects();
@@ -238,14 +241,6 @@ const Portfolio = () => {
               <div
                 key={project._id}
                 onClick={() => setActiveProject(project)}
-                style={{
-                  background: "#1e293b",
-                  padding: "25px",
-                  borderRadius: "20px",
-                  cursor: "pointer",
-                  border: "1px solid #334155",
-                  transition: "all 0.3s ease",
-                }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.borderColor = "#3b82f6";
                   e.currentTarget.style.transform = "translateY(-5px)";
@@ -253,6 +248,14 @@ const Portfolio = () => {
                 onMouseLeave={(e) => {
                   e.currentTarget.style.borderColor = "#334155";
                   e.currentTarget.style.transform = "translateY(0)";
+                }}
+                style={{
+                  background: "#1e293b",
+                  padding: "25px",
+                  borderRadius: "20px",
+                  cursor: "pointer",
+                  border: "1px solid #334155",
+                  transition: "all 0.3s ease",
                 }}>
                 <h3 style={{ fontSize: "1.3rem", marginBottom: "10px" }}>
                   {project.title}
@@ -306,9 +309,7 @@ const Portfolio = () => {
             Durante mis prácticas en <strong>Argosystems</strong>, me
             especialicé en el ecosistema de Microsoft. Desarrollé aplicaciones
             personalizadas con <strong>Power Apps</strong> y automaticé flujos
-            de trabajo empresariales complejos utilizando{" "}
-            <strong>Power Automate</strong>, integrando diversas herramientas
-            para mejorar la eficiencia operativa.
+            de trabajo con <strong>Power Automate</strong>.
           </p>
         </section>
 
@@ -371,7 +372,7 @@ const Portfolio = () => {
               }}>
               {activeProject.description}
             </p>
-            <div style={{ marginBottom: "25px" }}>
+            <div>
               <h4 style={{ color: "#3b82f6", marginBottom: "10px" }}>Stack:</h4>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
                 {activeProject.technologies.map((t) => (
